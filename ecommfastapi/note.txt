@@ -1,0 +1,39 @@
+﻿Activate.ps1: ही PowerShell साठीची स्क्रिप्ट आहे. तुम्ही Visual Studio चे Developer PowerShell वापरता, म्हणून हीच योग्य आहे.
+Activate (extension शिवाय): ही Linux/Mac (bash) साठीची स्क्रिप्ट आहे. Windows PowerShell मध्ये ती चालत नाही.
+ 
+ pip install -r requirements.txt first time download 
+
+python -m venv venv
+ .\venv\Scripts\activate
+ pip install "fastapi[standard]" sqlalchemy[asyncio] aiomysql alembic python-decouple python-jose[cryptography] passlib[bcrypt] cryptography
+
+pip freeze > requirements.txt
+
+app>fasatapi dev or fastapi dev app/main.py
+
+
+alembic init -t async alembic     -->alembic when alemebci first time create
+
+alembic revision --autogenerate -m "create users and refresh tokens tables"
+alembic revision --autogenerate -m "create products and category tables"
+alembic revision --autogenerate -m "create cart item table"
+alembic revision --autogenerate -m "create shipping address table"
+alembic revision --autogenerate -m "create order tables"
+alembic revision --autogenerate -m "create payment table"
+alembic upgrade head
+
+
+
+delete loacl as well as github
+git rm -r folder or file name
+git commit -m "Remove folder_name"
+git push origin main
+
+
+{
+  "email": "akshayexample@gmail.com",
+   "password": "akshay123"
+}
+
+
+ npm run dev
