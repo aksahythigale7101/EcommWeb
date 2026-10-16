@@ -1,65 +1,377 @@
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
+/* Modern CSS edition (2026): oklch colors, color-mix(), native nesting,
+   :has(), text-wrap, scroll-driven reveal, fluid type.
+   Theme: ice-blue page, deep ink text, ONE tangerine accent. Flat everywhere. */
+
 :root {
-  --ink: #17211b;
-  --muted: #69756d;
-  --green: #176b4d;
-  --green-dark: #10513a;
-  --lime: #d8f36a;
-  --line: #e5e9e4;
-  --surface: #ffffff;
+    color-scheme: light;
+    --bg: oklch(96.5% 0.018 235); /* ice blue page */
+    --panel: oklch(100% 0 0); /* white panels */
+    --ink: oklch(24% 0.04 250); /* deep blue-black text */
+    --muted: oklch(52% 0.03 250);
+    --accent: oklch(68% 0.19 45); /* tangerine */
+    --accent-ink: oklch(22% 0.05 45); /* text on accent */
+    --line: color-mix(in oklab, var(--ink) 12%, var(--bg));
+    --tint: color-mix(in oklab, var(--ink) 6%, var(--bg));
+    --radius: 14px;
+    --font-display: "Bricolage Grotesque", "Manrope", ui-sans-serif, sans-serif;
+    --font-body: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    background: var(--bg);
+    accent-color: var(--accent);
+    scroll-padding-top: 5rem;
+}
+
 body {
-  margin: 0; background: #f7f8f5; color: var(--ink);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  letter-spacing: -.01em;
+    margin: 0;
+    min-height: 100dvh;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-wrap: pretty;
 }
-a { transition: color .18s ease, opacity .18s ease; }
-button { cursor: pointer; transition: transform .18s ease, background .18s ease, box-shadow .18s ease; }
-button:hover { transform: translateY(-1px); }
-input, select, textarea { outline: none; }
-input:focus, select:focus, textarea:focus { border-color: #26815e !important; box-shadow: 0 0 0 3px rgba(38,129,94,.12); }
-nav { background: rgba(255,255,255,.94) !important; box-shadow: 0 1px 0 rgba(23,33,27,.08) !important; backdrop-filter: blur(14px); }
-nav > div { max-width: 1280px; }
-nav a { text-decoration: none !important; }
-nav a:hover { color: var(--green) !important; }
-nav button { border-radius: 999px; padding: 9px 14px; }
-main { width: 100%; max-width: 1280px; margin-inline: auto; min-height: 65vh; }
-main > div { animation: fadeUp .38s ease both; }
-h1, h2, h3 { letter-spacing: -.035em; color: var(--ink); }
-h1 { line-height: 1.08; }
-section { margin-block: 2rem; }
-section > h2 { font-size: clamp(1.35rem,2.4vw,1.9rem); margin-bottom: 1.2rem; }
-.grid > a, .grid > div { min-width: 0; }
-.bg-white { background-color: var(--surface); }
-.rounded-xl, .rounded-lg { border-radius: 18px !important; }
-.shadow, .shadow-sm, .shadow-md { box-shadow: 0 8px 26px rgba(24,42,31,.06) !important; }
-.border { border-color: var(--line) !important; }
-input, textarea, select { border-radius: 10px; }
-button.bg-blue-600, a.bg-blue-600, button.bg-indigo-600, a.bg-indigo-600,
+
+a {
+    color: inherit;
+    transition: color .15s ease;
+}
+
+button {
+    cursor: pointer;
+    transition: background-color .15s ease, color .15s ease;
+}
+
+img {
+    max-width: 100%;
+}
+
+::selection {
+    background: var(--accent);
+    color: var(--accent-ink);
+}
+
+input, select, textarea {
+    font-family: inherit;
+    outline: none;
+    &:focus
+
+{
+    border-color: var(--ink) !important;
+    box-shadow: none;
+}
+
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+/* ---------- Navbar ---------- */
+nav {
+    background: color-mix(in oklab, var(--bg) 92%, transparent) !important;
+    border-bottom: 1px solid var(--line);
+    box-shadow: none !important;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: blur(12px);
+    & > div
+
+{
+    max-width: 1280px;
+}
+
+& a {
+    color: var(--ink) !important;
+    text-decoration: none !important;
+    font-weight: 600;
+    background: linear-gradient(var(--accent), var(--accent)) 0 100% / 0 2px no-repeat;
+    transition: background-size .2s ease;
+    &:hover
+
+{
+    background-size: 100% 2px;
+}
+
+&:first-child {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.4rem;
+    letter-spacing: -.04em;
+}
+
+}
+
+& button {
+    color: var(--ink);
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 6px 2px;
+    font-weight: 600;
+    &:hover
+
+{
+    color: var(--accent);
+}
+
+}
+}
+
+/* ---------- Layout ---------- */
+main {
+    width: 100%;
+    max-width: 1280px;
+    margin-inline: auto;
+    min-height: 65dvh;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-display);
+    color: var(--ink);
+    font-weight: 800;
+    letter-spacing: -.04em;
+    text-wrap: balance;
+}
+
+h1 {
+    font-size: clamp(2.6rem, 3rem + 3vw, 5.4rem);
+    line-height: .96;
+}
+
+h2 {
+    line-height: 1.05;
+}
+
+h3 {
+    font-weight: 700;
+    letter-spacing: -.02em;
+}
+
+section {
+    margin-block: clamp(2.25rem, 5vw, 4rem);
+    & > h2
+
+{
+    font-size: clamp(1.8rem, 1.2rem + 2.4vw, 2.9rem);
+    margin-bottom: 1.5rem;
+}
+
+}
+
+.grid > a, .grid > div {
+    min-width: 0;
+}
+
+/* ---------- Tailwind color mapping ---------- */
+.text-black, .text-gray-900, .text-gray-800, .text-gray-700 {
+    color: var(--ink) !important;
+}
+
+.text-gray-600, .text-gray-500, .text-gray-400 {
+    color: var(--muted) !important;
+}
+
+.text-blue-600, .text-indigo-600, .text-rose-600, .text-green-600 {
+    color: var(--accent) !important;
+}
+
+.bg-gray-50, .bg-gray-100, .bg-gray-200 {
+    background-color: var(--tint) !important;
+}
+
+.border-gray-100, .border-gray-200, .border-gray-300 {
+    border-color: var(--line) !important;
+}
+
+/* ---------- Products: flat tiles, no card chrome ---------- */
+.bg-white {
+    background-color: transparent !important;
+}
+
+.rounded-xl, .rounded-lg {
+    border-radius: var(--radius) !important;
+}
+
+.shadow, .shadow-sm, .shadow-md, .shadow-lg {
+    box-shadow: none !important;
+}
+
+.border {
+    border-color: var(--line) !important;
+}
+
+.grid > a.bg-white, .grid > div.bg-white {
+    border: 0 !important;
+    padding: 0 !important;
+}
+
+.grid img {
+    width: 100%;
+    background: var(--panel);
+    border-radius: var(--radius);
+    object-fit: cover;
+    transition: opacity .2s ease;
+}
+
+.grid h3 {
+    margin-top: .75rem;
+    font-size: 1.05rem;
+}
+
+/* modern :has() - dim the siblings when one product is hovered */
+.grid:has(> a:hover) > a:not(:hover) {
+    opacity: .6;
+    transition: opacity .2s ease;
+}
+
+/* ---------- Forms ---------- */
+input, textarea, select {
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--ink);
+    box-shadow: none;
+}
+
+    input::placeholder, textarea::placeholder {
+        color: color-mix(in oklab, var(--ink) 40%, var(--bg));
+    }
+
+form input {
+    min-height: 48px;
+    padding-inline: 14px;
+}
+
+form button {
+    min-height: 48px;
+}
+
+/* ---------- Buttons: ink pill, tangerine on hover ---------- */
+button.bg-blue-600, a.bg-blue-600,
+button.bg-indigo-600, a.bg-indigo-600,
 button.bg-green-600, button.bg-rose-600, a.bg-rose-600 {
-  background: var(--green) !important; border-radius: 11px !important;
-  font-weight: 650; box-shadow: 0 5px 12px rgba(23,107,77,.15);
+    background: var(--ink) !important;
+    color: #fff !important;
+    border: 0;
+    border-radius: 999px !important;
+    font-weight: 700;
+    box-shadow: none !important;
+    text-decoration: none;
+    &:hover
+
+{
+    background: var(--accent) !important;
+    color: var(--accent-ink) !important;
 }
-button.bg-blue-600:hover, a.bg-blue-600:hover, button.bg-indigo-600:hover,
-a.bg-indigo-600:hover, button.bg-green-600:hover, button.bg-rose-600:hover, a.bg-rose-600:hover {
-  background: var(--green-dark) !important;
+
 }
-.text-blue-600, .text-rose-600 { color: var(--green) !important; }
-footer { background: #edf1eb !important; color: #657168 !important; border-top: 1px solid var(--line); }
-form input { min-height: 46px; }
-form button { min-height: 44px; }
-main .max-w-md { max-width: 440px; padding: clamp(24px,4vw,38px); border: 1px solid var(--line); border-radius: 22px; box-shadow: 0 18px 55px rgba(25,44,31,.08); }
-main .max-w-md h2 { font-size: 1.75rem; letter-spacing: -.04em; }
-main .max-w-md input { background: #fbfcfa; border-color: #dfe5de; border-radius: 10px; }
-main .max-w-md button { margin-top: 4px; }
-img { max-width: 100%; }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ---------- Footer ---------- */
+footer {
+    background: var(--ink) !important;
+    color: color-mix(in oklab, #fff 62%, var(--ink)) !important;
+    border-top: 0;
+    margin-top: 4rem;
+    & a
+
+{
+    color: #fff;
+    text-decoration: none;
+}
+
+& a:hover {
+    color: var(--accent);
+}
+
+}
+
+/* ---------- Login / Register ---------- */
+main .max-w-md {
+    max-width: 440px;
+    padding: clamp(26px, 4vw, 40px);
+    background: var(--panel);
+    border: 0;
+    border-radius: 20px;
+    box-shadow: none;
+    & h2
+
+{
+    font-size: 2rem;
+}
+
+& input {
+    background: var(--bg);
+    border-color: transparent;
+}
+
+& button {
+    margin-top: 6px;
+}
+
+}
+
+/* ---------- One scroll-driven reveal (only where supported) ---------- */
+@supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+        .grid > a, .grid > div {
+            animation: rise linear both;
+            animation-timeline: view();
+            animation-range: entry 0% entry 40%;
+        }
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                translate: 0 18px;
+            }
+
+            to {
+                opacity: 1;
+                translate: 0 0;
+            }
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
+
 @media (max-width: 640px) {
-  nav > div { flex-wrap: wrap; gap: 12px; }
-  nav .space-x-4 { gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
-  main { padding-inline: 14px !important; }
-  .grid { gap: 14px !important; }
+    nav > div {
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    nav .space-x-4 {
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
+    main {
+        padding-inline: 14px !important;
+    }
+
+    .grid {
+        gap: 18px !important;
+    }
 }
