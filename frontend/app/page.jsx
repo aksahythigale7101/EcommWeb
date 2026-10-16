@@ -11,6 +11,7 @@ export default function Home() {
 	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
+		debugger;
 		const fetchProductByCategories = async () => {
 			try {
 				const [clothingRes, electronicsRes, homekitchenRes] = await Promise.all([

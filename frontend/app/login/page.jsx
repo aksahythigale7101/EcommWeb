@@ -1,9 +1,10 @@
-﻿'use client'
+'use client'
 import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
 import { useRouter } from 'next/navigation'
 
 const LoginPage = () => {
+	debugger;
 	const { login } = useAuth();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");

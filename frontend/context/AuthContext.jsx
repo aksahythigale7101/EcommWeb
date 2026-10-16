@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
 
 	const fetchUser = async () => {
 		try {
+			debugger;
 			const res = await api.get("api/account/me");
 
 			setUser(res.data);
@@ -24,6 +25,7 @@ export const AuthProvider = ({ children }) => {
 	};
 
 	const login = async (data) => {
+		debugger;
 		await api.post("api/account/login", data);
 		const loggedInUser = await fetchUser();
 		const searchParams = new URLSearchParams(window.location.search);
@@ -38,12 +40,14 @@ export const AuthProvider = ({ children }) => {
 	};
 
 	const logout = async () => {
+		debugger;
 		await api.post("api/account/logout");
 		setUser(null);
 		router.push("/login");
 	};
 
 	const register = async (data) => {
+		debugger;
 		await api.post("api/account/register", data);
 		router.push("/login");
 	};
