@@ -1,0 +1,56 @@
+﻿
+
+compontent/product.card.jsx------home page image and ammount
+------------------------------------------------
+Backend मधून data कसा येतो? — सर्वांत महत्त्वाचा भाग
+तुमच्या code मध्ये Axios वापरले आहे. उदाहरणार्थ app/page.jsx मध्ये:
+axios.get(  `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/products?categories=Fashion`)
+------------------------------------------------------------------------------------
+context/AuthContext.jsx — Login केलेला user सर्व pages मध्ये कसा उपलब्ध होतो?
+authentication साठी React Context वापरला आहे.
+------------------------------------------------------------------------------
+ProtectedRoute.jsx आणि AdminOnly.jsx यांतील फरक
+ProtectedRoute user login केलेला आहे का हे तपासते. त्यात adminOnly prop दिल्यास Admin permission देखील तपासली जाते.
+----------------------------------------------------------------------------------------------------------------
+A. Home आणि Products
+Files: app/page.jsx, app/product/page.jsx, app/product/[slug]/page.jsx, components/ProductCard.jsx
+Action				API request
+Home categories			GET /api/products?categories=Fashion
+Electronics				GET /api/products?categories=electronics
+Home & Kitchen			GET /api/products?categories=Home%20%26%20Kitchen (URL encoding नुसार)
+Search / Pagination		GET /api/products/search?page=1&limit=5&title=...
+Product details			GET /api/products/{slug}
+
+B. Authentication
+File: context/AuthContext.jsx
+Register		POST /api/account/register
+Login			POST /api/account/login
+Current user	GET /api/account/me
+Logout			POST /api/account/logout
+Refresh attempt	POST /api/account/refresh
+
+C. Cart आणि Checkout
+Files: app/cart/page.jsx, app/checkout/page.jsx, app/product/[slug]/page.jsx
+Add product				POST /api/carts/add
+Read cart				GET /api/carts
+Increase quantity		PATCH /api/carts/increase/{product_id}
+Decrease quantity		PATCH /api/carts/decrease/{product_id}
+Remove item				DELETE /api/carts/delete/{item_id}
+Load addresses			GET /api/shippings/addresses
+Checkout				POST /api/orders/checkout
+
+D. User आणि Admin panel
+Files: app/user/ मधील संबंधित pages
+Orders				GET /api/orders
+Cancel order		PATCH /api/orders/cancel/{id}
+Payment history		GET /api/payments
+Address CRUD		/api/shippings/addresses वरील GET, POST, PATCH, DELETE
+Category CRUD		/api/products-category वरील GET, POST, DELETE
+Admin products		/api/products वरील GET, POST, PATCH, DELETE
+Shipping status		GET /api/orders/admin/all, PATCH /api/shippings/status/{orderId}
+-----------------------------------------------------------------------------------
+app/Checkout/ page मध्ये नेमके काय होते?
+तुमच्या app/checkout/page.jsx मध्ये दोन API requests एकाच वेळी पाठवल्या जातात
+---------------------------------------------------------------------
+माझी शिफारस आहे की सर्वप्रथम app/layout.js, app/page.jsx, components/ProductCard.jsx आणि utils/axios.js या चार files समजून घ्या.
+ या चार files समजल्या की संपूर्ण application चा मुख्य architecture आणि data flow स्पष्ट होऊ लागेल.

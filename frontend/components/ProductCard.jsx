@@ -14,6 +14,7 @@ const ProductCard = ({ product }) => {
                     className="w-full h-48 object-cover rounded"
                     src={imageSrc}
                     alt={product.title}
+
                 />
                 <h2 className="text-lg font-semibold mt-2">{product.title}</h2>
                 <p className="text-gray-600">₹ {product.price}</p>
