@@ -17,6 +17,7 @@
     <SuppressCollectPythonCloudServiceFiles>true</SuppressCollectPythonCloudServiceFiles>
     <Name>EcommWeb</Name>
     <RootNamespace>EcommWeb</RootNamespace>
+    <InterpreterId>MSBuild|venv|$(MSBuildProjectFullPath)</InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -4581,6 +4582,9 @@
     <Content Include="ecommfastapi\venv\Scripts\uvicorn.exe" />
     <Content Include="ecommfastapi\venv\Scripts\watchfiles.exe" />
     <Content Include="ecommfastapi\venv\Scripts\websockets.exe" />
+    <Content Include="ecommnextjs\.env">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="ecommnextjs\.gitignore" />
     <Content Include="ecommnextjs\app\cart\page.jsx" />
     <Content Include="ecommnextjs\app\checkout\page.jsx" />
@@ -5718,7 +5722,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ecommfastapi\alembic\env.py" />
-    <Compile Include="ecommfastapi\alembic\versions\45a7cbb32b51_create_all_table.py" />
     <Compile Include="ecommfastapi\app\account\deps.py" />
     <Compile Include="ecommfastapi\app\account\models.py" />
     <Compile Include="ecommfastapi\app\account\routers.py" />
@@ -9318,6 +9321,17 @@
     <Compile Include="ecommfastapi\venv\Lib\site-packages\_distutils_hack\override.py" />
     <Compile Include="ecommfastapi\venv\Lib\site-packages\_distutils_hack\__init__.py" />
     <Compile Include="ecommfastapi\venv\Lib\site-packages\_yaml\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="ecommfastapi\venv\">
+      <Id>venv</Id>
+      <Version>3.11</Version>
+      <Description>venv (Python 3.11 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
   <!-- Specify pre- and post-build commands in the BeforeBuild and 

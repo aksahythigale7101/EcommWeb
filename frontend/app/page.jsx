@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 import { useEffect, useState } from "react";
 import Hero from "@/components/Hero";
 import ProductCard from '@/components/ProductCard'
