@@ -31,9 +31,9 @@ git push origin main
 
 
 {
-  "email": "akshayexample@gmail.com",
+  "email": "akshayexample@.com",
    "password": "akshay123"
 }
 
 
- npm run dev
+ npm run devc
