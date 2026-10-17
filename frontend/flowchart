@@ -52,5 +52,6 @@ Shipping status		GET /api/orders/admin/all, PATCH /api/shippings/status/{orderId
 app/Checkout/ page मध्ये नेमके काय होते?
 तुमच्या app/checkout/page.jsx मध्ये दोन API requests एकाच वेळी पाठवल्या जातात
 ---------------------------------------------------------------------
-माझी शिफारस आहे की सर्वप्रथम app/layout.js, app/page.jsx, components/ProductCard.jsx आणि utils/axios.js या चार files समजून घ्या.
+-माझी शिफारस आहे की सर्वप्रथम app/layout.js, app/page.jsx, components/ProductCard.jsx आणि utils/axios.js या चार files समजून घ्या.
  या चार files समजल्या की संपूर्ण application चा मुख्य architecture आणि data flow स्पष्ट होऊ लागेल.
+-त्यानंतर AuthContext.jsx आणि app/login/page.jsx पासून authentication शिकणे सोपे जाईल.
